@@ -21,8 +21,6 @@ public class AssociadoService {
 
     private AssociadoRepository associadoRepository;
 
-    private ResponseService responseService;
-
     private final AssociadoMapper associadoMapper = AssociadoMapper.INSTANCE;
 
     /**
@@ -35,17 +33,23 @@ public class AssociadoService {
 
     public MessageResponseDTO create(AssociadoRequestDTO associadoRequestDTO) {
         if (exists(associadoRequestDTO.getCpf())) {
-            return responseService.createMessageResponse(associadoRequestDTO.getCpf(), MENSAGEM_ASSOCIADO_JA_EXISTE);
+            return createMessageAssociadoResponse(associadoRequestDTO.getCpf(), MENSAGEM_ASSOCIADO_JA_EXISTE);
         }
 
         associadoRepository.findById(associadoRequestDTO.getCpf());
         Associado associadoSaved = associadoRepository.save(associadoMapper.toEntity(associadoRequestDTO));
-        return responseService.createMessageResponse(associadoSaved.getCpf(), MENSAGEM_ASSOCIADO_CRIADO);
+        return createMessageAssociadoResponse(associadoSaved.getCpf(), MENSAGEM_ASSOCIADO_CRIADO);
     }
 
     public boolean exists(Long cpf) {
-        Associado associado = new Associado();
-        associado = associadoRepository.getById(cpf);
-        return associado.getCpf() != null;
+        Associado associado = associadoRepository.getById(cpf);
+        return associado != null && associado.getCpf() != null;
+    }
+
+    public MessageResponseDTO createMessageAssociadoResponse(Long id, String message) {
+        return MessageResponseDTO
+                .builder()
+                .message(message + id)
+                .build();
     }
 }

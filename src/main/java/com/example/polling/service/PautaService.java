@@ -28,8 +28,6 @@ public class PautaService {
 
     private PautaRepository pautaRepository;
 
-    private ResponseService responseService;
-
     private final PautaMapper pautaMapper = PautaMapper.INSTANCE;
 
     /**
@@ -45,7 +43,7 @@ public class PautaService {
         pauta.setDataCadastro(LocalDateTime.now());
         Pauta pautaSaved = pautaRepository.save(pauta);
 
-        return responseService.createMessageResponse(pautaSaved.getId(), MENSAGEM_PAUTA_CRIADA);
+        return createMessagePautaResponse(pautaSaved.getId(), MENSAGEM_PAUTA_CRIADA);
     }
 
     public MessageResponseDTO startSession(SessaoPautaRequestDTO sessaoPautaRequestDTO) throws PautaNotFoundException {
@@ -53,11 +51,11 @@ public class PautaService {
         Pauta pauta = findById(idPauta);
 
         if (isVotacaoEncerrada(pauta)) {
-            return responseService.createMessageResponse(idPauta, MENSAGEM_PAUTA_ENCERRADA);
+            return createMessagePautaResponse(idPauta, MENSAGEM_PAUTA_ENCERRADA);
         }
 
         if (pauta.getDataAberturaSessao() != null) {
-            return responseService.createMessageResponse(idPauta, MENSAGEM_VOTACAO_JA_ABERTA);
+            return createMessagePautaResponse(idPauta, MENSAGEM_VOTACAO_JA_ABERTA);
         }
 
         LocalDateTime dataAberturaSessao = LocalDateTime.now();
@@ -69,7 +67,7 @@ public class PautaService {
 
         Pauta pautaSaved = pautaRepository.save(pauta);
 
-        return responseService.createMessageResponse(pautaSaved.getId(), MENSAGEM_VOTACAO_INICIADA);
+        return createMessagePautaResponse(pautaSaved.getId(), MENSAGEM_VOTACAO_INICIADA);
     }
 
     public MessageResponseDTO vote(VotoRequestDTO votoRequestDTO) throws PautaNotFoundException {
@@ -78,11 +76,11 @@ public class PautaService {
         Pauta pauta = findById(idPauta);
 
         if (isVotacaoEncerrada(pauta)) {
-            return responseService.createMessageResponse(idPauta, MENSAGEM_PAUTA_ENCERRADA);
+            return createMessagePautaResponse(idPauta, MENSAGEM_PAUTA_ENCERRADA);
         }
 
         if (pauta.getDataAberturaSessao() == null) {
-            return responseService.createMessageResponse(idPauta, MENSAGEM_VOTACAO_NAO_INICIADA);
+            return createMessagePautaResponse(idPauta, MENSAGEM_VOTACAO_NAO_INICIADA);
         }
 
         // Valida Associado
@@ -90,7 +88,7 @@ public class PautaService {
         associado.setCpf(votoRequestDTO.getCpfAssociado());
 
         if (getQuantidadeVotosAssociadoPorPauta(pauta, associado.getCpf()) >= 1) {
-            return responseService.createMessageResponse(associado.getCpf(), MENSAGEM_VOTO_ENCONTRADO);
+            return createMessagePautaResponse(associado.getCpf(), MENSAGEM_VOTO_ENCONTRADO);
         }
 
         Voto voto = new Voto();
@@ -101,7 +99,7 @@ public class PautaService {
         pauta.getVotos().add(voto);
         Pauta pautaSaved = pautaRepository.save(pauta);
 
-        return responseService.createMessageResponse(pautaSaved.getId(), MENSAGEM_VOTO_REGISTRADO);
+        return createMessagePautaResponse(pautaSaved.getId(), MENSAGEM_VOTO_REGISTRADO);
     }
 
     /**
@@ -125,6 +123,13 @@ public class PautaService {
                 .stream()
                 .filter(v -> v.getAssociado().getCpf().equals(cpfAssociado))
                 .count();
+    }
+
+    public MessageResponseDTO createMessagePautaResponse(Long id, String message) {
+        return MessageResponseDTO
+                .builder()
+                .message(message + id)
+                .build();
     }
 
 }

@@ -1,12 +1,13 @@
 package com.example.polling.dto.request;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.constraints.Min;
 
-@Getter
-@Setter
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class SessaoPautaRequestDTO {
 
     private Long idPauta;
