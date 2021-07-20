@@ -10,7 +10,6 @@ import com.example.polling.entity.Pauta;
 import com.example.polling.entity.Voto;
 import com.example.polling.exception.PautaNotFoundException;
 import com.example.polling.mapper.PautaMapper;
-import com.example.polling.repository.AssociadoRepository;
 import com.example.polling.repository.PautaRepository;
 import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
@@ -21,23 +20,15 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static com.example.polling.commons.MessagesUtil.*;
+
 @Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class PautaService {
 
     private PautaRepository pautaRepository;
-    private final PautaMapper pautaMapper = PautaMapper.INSTANCE;
 
-    /**
-     * Variáveis Estáticas - Mensagens do sistema
-     */
-    private static final String MENSAGEM_PAUTA_CRIADA = "Foi criada a Pauta com o ID ";
-    private static final String MENSAGEM_PAUTA_ENCERRADA = "Já foi encerrada a votação para a Pauta com o ID ";
-    private static final String MENSAGEM_VOTACAO_JA_ABERTA = "Já existe uma votação em aberto para a Pauta com o ID ";
-    private static final String MENSAGEM_VOTACAO_NAO_INICIADA = "Ainda não foi aberta a votação para a Pauta com o ID ";
-    private static final String MENSAGEM_VOTACAO_INICIADA = "Foi iniciada a sessão de votação da Pauta com o ID ";
-    private static final String MENSAGEM_VOTO_REGISTRADO = "Voto registrado com sucesso na Pauta com ID ";
-    private static final String MENSAGEM_VOTO_ENCONTRADO = "Foi encontrado pelo menos um voto nesta Pauta pelo associado com o CPF ";
+    private final PautaMapper pautaMapper = PautaMapper.INSTANCE;
 
     /**
      * Métodos Públicos
