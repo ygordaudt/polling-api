@@ -42,8 +42,11 @@ public class AssociadoService {
     }
 
     public boolean exists(Long cpf) {
-        Associado associado = associadoRepository.getById(cpf);
-        return associado != null && associado.getCpf() != null;
+        if (cpf == null) {
+            return true;
+        }
+
+        return associadoRepository.existsById(cpf);
     }
 
     public MessageResponseDTO createMessageAssociadoResponse(Long id, String message) {
