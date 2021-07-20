@@ -1,25 +1,18 @@
-package com.example.polling.entity;
+package com.example.polling.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-
-
-@Entity
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Associado {
+public class AssociadoResponseDTO {
 
-    @Id
-    @Column(name = "CPF")
     private Long cpf;
 
-    @Column(name = "NOME", nullable = false)
     private String nome;
 
 }

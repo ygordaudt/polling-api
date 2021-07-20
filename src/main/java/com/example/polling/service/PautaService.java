@@ -26,14 +26,11 @@ import java.util.List;
 public class PautaService {
 
     private PautaRepository pautaRepository;
-    private AssociadoRepository associadoRepository;
     private final PautaMapper pautaMapper = PautaMapper.INSTANCE;
 
     /**
      * Variáveis Estáticas - Mensagens do sistema
      */
-    private static final Long CPF_ASSOCIADO_EXISTENTE = 12312312312L;
-    private static final String NOME_ASSOCIADO_EXISTENTE = "Ygor Daudt";
     private static final String MENSAGEM_PAUTA_CRIADA = "Foi criada a Pauta com o ID ";
     private static final String MENSAGEM_PAUTA_ENCERRADA = "Já foi encerrada a votação para a Pauta com o ID ";
     private static final String MENSAGEM_VOTACAO_JA_ABERTA = "Já existe uma votação em aberto para a Pauta com o ID ";
@@ -96,7 +93,6 @@ public class PautaService {
         }
 
         // Valida Associado
-        initInstanceAssociado();
         Associado associado = new Associado();
         associado.setCpf(votoRequestDTO.getCpfAssociado());
 
@@ -132,15 +128,6 @@ public class PautaService {
                 .builder()
                 .message(message + id)
                 .build();
-    }
-
-    private void initInstanceAssociado() {
-        if (!associadoRepository.existsById(CPF_ASSOCIADO_EXISTENTE)) {
-            Associado a = new Associado();
-            a.setCpf(CPF_ASSOCIADO_EXISTENTE);
-            a.setNome(NOME_ASSOCIADO_EXISTENTE);
-            associadoRepository.save(a);
-        }
     }
 
     private boolean isVotacaoEncerrada(Pauta pauta) {
