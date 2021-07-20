@@ -8,7 +8,6 @@ import org.springframework.web.client.RestTemplate;
 /**
     Ferramenta online para validação de CPF
 */
-
 @Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class ValidacaoService {

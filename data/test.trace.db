@@ -1,6 +1,0 @@
-2021-07-20 14:23:49 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "pauta" not found; SQL statement:
-select max(id) from pauta [42102-200]
-2021-07-20 14:24:33 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "PAUTA" not found; SQL statement:
-select max(id) from pauta [42102-200]
