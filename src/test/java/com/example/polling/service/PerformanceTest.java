@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 public class PerformanceTest {
 
-    @Test(timeout = 100)
+    @Test(timeout = 1000)
     public void testPerformance() {
         int numbers[] = {10, 50, 30, 20};
 
