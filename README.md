@@ -126,6 +126,7 @@ Retorno Esperado:
 
 Exceção 1: CPF inválido
 > "O seguinte CPF é inválido: { cpf }"
+Obs: A validação é feita a partir de uma integração com a API externa sugerida (https://user-info.herokuapp.com/users/{cpf})
 
 Exceção 2: Pauta não encontrada
 > "Pauta não encontrada com o ID { id_pauta }"
