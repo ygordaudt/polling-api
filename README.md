@@ -1,6 +1,22 @@
 # API de Votação
 Um projeto de API de votação de pautas, desenvolvido em Java, para resolução de um Desafio Técnico de Backend.
 
+### Resumo
+O presente material conta com os seguintes itens:
+
+Modelo de dados para o mapeamento de entidades em bancos de dados;
+Desenvolvimento de operações de gerenciamento de votações (Cadastro, leitura e operações de votações de um sistema);
+Relação de cada uma das operações acima com o padrão arquitetural REST;
+Desenvolvimento de testes unitários para validação das funcionalidades;
+Implantação do sistema na nuvem através do Heroku (https://yd-test-votacao-api.herokuapp.com/api/v1).
+Dentre as dependências importadas pelo Spring (https://start.spring.io), temos as seguintes:
+
+Spring Boot DevTools (DevTools)
+Lombok (DevTools)
+Spring Web (Web)
+Spring Data JPA (SQL)
+PostgreSQL Database (SQL)
+
 ### Objetivo / Cenário
 "No cooperativismo, cada associado possui um voto e as decisões são tomadas em assembleias, por votação. A partir disso, você precisa criar uma solução back-end para gerenciar essas sessões de votação. Essa solução deve ser executada na nuvem e promover as seguintes funcionalidades através de uma API REST:
 
