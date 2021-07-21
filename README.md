@@ -43,7 +43,7 @@ Foi utilizado o Postman durante todo o processo de desenvolvimento para fins de 
 Para facilitar a visualização e testes imediatos, poderão ser utilizados os end-points do Heroku. Para uso local, basta substituir o BASE_URL por http://localhost:8080/api/v1
 > BASE_URL: https://yd-test-votacao-api.herokuapp.com/api/v1
 
-### Gestão de Associados 
+#### Gestão de Associados 
 * Listar Associados - [GET] /associado
 
 Retorno esperado:
@@ -60,17 +60,78 @@ Exemplo do Body para Cadastro:
   }
 ````
 Retorno esperado:
-> "Foi criado o Associado com o CPF 1"
+> "Foi criado o Associado com o CPF { cpf }"
 
 Exceção 1: CPF existente
-> "Já existe um associado com o CPF 1"
+> "Já existe um associado com o CPF { cpf }"
 
-### Gestão de Pautas
-* Listar Pautas - [GET] /pauta
+#### Gestão de Pautas
+* #### Listar Pautas - [GET] /pauta
 
 Retorno Esperado:
 
 ![img_3.png](img_3.png)
 
-Exceção 1: CPF existente
-> "Já existe um associado com o CPF 1"
+* #### Cadastrar Pauta - [POST] /pauta
+
+Exemplo do Body para Cadastro:
+
+```JSON
+{
+    "titulo": "Pauta teste 3",
+    "descricao": "Esta pauta é para tal coisa"
+}
+````
+
+* #### Abrir sessão de votos - [PUT] /pauta/{ id_pauta }/sessao/abrir 
+  
+Exemplo do Body para Abertura de Sessão:
+
+```JSON
+{
+  "duracao" : 5 // Em minutos. Por DEFAULT o valor é 1
+}
+````
+
+Retorno Esperado:
+> "Foi iniciada a sessão de votação da Pauta com o ID { id_pauta }"
+
+Exceção 1: Pauta não encontrada
+> "Pauta não encontrada com o ID { id_pauta }"
+
+Exceção 2: Período de votação encerrado
+> "Já foi encerrada a votação para a Pauta com o ID  { id_pauta }"
+
+Exceção 3: Período de votação já aberto
+> "Já existe uma votação em aberto para a Pauta com o ID  { id_pauta }"
+
+
+* #### Efetuar voto - [POST] /pauta/votar
+
+Exemplo do Body para efetivação do voto:
+
+```JSON
+{
+  "idPauta": "3",
+  "cpfAssociado": "61577282302",
+  "voto": true
+}
+````
+
+Retorno Esperado:
+> "Voto registrado com sucesso na Pauta com ID { id_pauta }"
+
+Exceção 1: CPF inválido
+> "O seguinte CPF é inválido: { cpf }"
+
+Exceção 2: Pauta não encontrada
+> "Pauta não encontrada com o ID { id_pauta }"
+
+Exceção 3: Período de votação encerrado
+> "Já foi encerrada a votação para a Pauta com o ID { id_pauta }"
+
+Exceção 4: Período de votação ainda não iniciado
+> "Ainda não foi aberta a votação para a Pauta com o ID { id_pauta }"
+
+Exceção 5: Voto já efetuado pelo Associado
+> "Foi encontrado pelo menos um voto nesta Pauta pelo associado com o CPF { cpf }"
