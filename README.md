@@ -13,7 +13,7 @@ Para fins de exercício, a segurança das interfaces pode ser abstraída e qualq
 
 É importante que as pautas e os votos sejam persistidos e que não sejam perdidos com o restart da aplicação."
 
-##Solução
+## Solução
 ### Principais Tecnologias e recursos utilizados
 * Java 11
 * Spring Boot
@@ -25,7 +25,7 @@ Para fins de exercício, a segurança das interfaces pode ser abstraída e qualq
 * Postman  
 * GitHub
 
-### Motivação para escolha das Tecnologias
+## Motivação para escolha das Tecnologias
 Como se trata de um projeto de pequeno porte, tais tecnologias foram selecionadas de forma a aproveitar bem as facilidades que são propostas para atender as demandas de qualidade e simplicidade de design da solução e com 0 de investimento.
 
 Visando a agilidade para executar a aplicação, a linguagem adotada foi o Java com as ferramentas Spring Boot, Maven e JUnit, o que automatiza todo o processo de preparação do ambiente, deploy e checagem de testes automatizados. Desde que a IDE esteja configurada corretamente, através do comando 'mvn clean install', todas as dependências serão baixadas e instaladas no projeto automaticamente, abrindo mão de procedimentos de configuração manuais.
@@ -36,12 +36,14 @@ O JPA, Hibernate e Lombok foram escolhidos por conta da gama de abstração de c
 
 Foi utilizado o Postman durante todo o processo de desenvolvimento para fins de testes de end-point e o GitHub como repositório e versionamento do código, por ser conhecido e de fácil uso.
 
-### Modelo de Dados
+## Modelo de Dados
 ![img.png](img.png)
 
-### Service
-Para facilitar a visualização e testes imediatos, poderão ser utilizados os end-points do Heroku. Para uso local, basta substituir o BASE_URL por http://localhost:8080/api/v1
+## Service
+Para facilitar a visualização e testes imediatos, poderão ser utilizados os end-points do Heroku.
 > BASE_URL: https://yd-test-votacao-api.herokuapp.com/api/v1
+
+Obs: Para uso local, basta substituir o BASE_URL por http://localhost:8080/api/v1
 
 #### Gestão de Associados 
 * Listar Associados - [GET] /associado
@@ -89,9 +91,10 @@ Exemplo do Body para Abertura de Sessão:
 
 ```JSON
 {
-  "duracao" : 5 // Em minutos. Por DEFAULT o valor é 1
+  "duracao" : 5
 }
 ````
+Obs: A Duração é em minutos. Por DEFAULT o valor é 1
 
 Retorno Esperado:
 > "Foi iniciada a sessão de votação da Pauta com o ID { id_pauta }"
